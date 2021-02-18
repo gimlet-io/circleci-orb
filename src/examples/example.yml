@@ -6,14 +6,15 @@ usage:
   orbs:
     gimlet: gimlet-io/circleci-orb@1.2.3
   workflows:
-    jobs:
-      build_docker_image:
-        working_directory: /tmp/workspace
-        machine: true
-        steps:
-          - attach_workspace:
-              at: /tmp/workspace
-          - docker-build:
-              service-name: 'my-service'
-          - gimlet/gimlet-artifact-create:
-              image-tag: "my-image-registry/my-service:$CIRCLE_SHA1"
+    my-workflow:
+      jobs:
+        build_docker_image:
+          working_directory: /tmp/workspace
+          machine: true
+          steps:
+            - attach_workspace:
+                at: /tmp/workspace
+            - docker-build:
+                service-name: 'my-service'
+            - gimlet/gimlet-artifact-create:
+                image-tag: "my-image-registry/my-service:$CIRCLE_SHA1"
