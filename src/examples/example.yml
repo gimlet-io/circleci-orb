@@ -1,13 +1,18 @@
 description: >
-  Sample example description.
-# Provide a use-case based example for using this orb.
-# Everything in the `usage` section will be displayed in the orb registry.
-# Comments are not retained.
+  How to publish a Gimlet Artifact
+
 usage:
   version: 2.1
   orbs:
-    <orb-name>: <namespace>/<orb-name>@1.2.3
+    gimlet: gimlet-io/circleci-orb@1.2.3
   workflows:
-    use-my-orb:
-      jobs:
-        - <orb-name>/<job-name>
+    build_docker_image:
+      working_directory: /tmp/workspace
+      machine: true
+      steps:
+        - attach_workspace:
+            at: /tmp/workspace
+        - docker-build:
+            service-name: 'my-service'
+        - gimlet/gimlet-artifact-create:
+            image-tag: "my-image-registry/my-service:$CIRCLE_SHA1"
