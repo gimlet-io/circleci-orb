@@ -29,7 +29,7 @@ steps:
       VARS=$(printenv | grep CIRCLE | awk '$0="--var "$0')
 
       ./gimlet artifact create \
-        --repository "$CIRCLE_PROJECT_REPONAME" \
+        --repository "$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME" \
         --sha "$CIRCLE_SHA1" \
         --branch "$CIRCLE_BRANCH" \
         --event "$EVENT" \
