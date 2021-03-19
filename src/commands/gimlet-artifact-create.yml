@@ -12,6 +12,7 @@ steps:
       COMMIT_AUTHOR_EMAIL=$(git log -1 --pretty=format:'%ae')
       COMMIT_COMITTER=$(git log -1 --pretty=format:'%cn')
       COMMIT_COMITTER_EMAIL=$(git log -1 --pretty=format:'%ce')
+      COMMIT_CREATED=$(git log -1 --format=%cI)
 
       EVENT="push"
       URL="https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/commit/$CIRCLE_SHA1"
@@ -33,6 +34,7 @@ steps:
       ./gimlet artifact create \
         --repository "$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME" \
         --sha "$CIRCLE_SHA1" \
+        --created "$COMMIT_CREATED" \
         --branch "$CIRCLE_BRANCH" \
         --event "$EVENT" \
         --sourceBranch "$SOURCE_BRANCH" \
