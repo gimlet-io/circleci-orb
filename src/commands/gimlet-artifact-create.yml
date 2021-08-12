@@ -4,7 +4,7 @@ parameters:
     type: string
 steps:
   - run: |
-      curl -L https://github.com/gimlet-io/gimlet-cli/releases/download/v0.7.0/gimlet-$(uname)-$(uname -m) -o gimlet
+      curl -L https://github.com/gimlet-io/gimlet-cli/releases/download/v0.9.1/gimlet-$(uname)-$(uname -m) -o gimlet
       chmod +x gimlet
 
       COMMIT_MESSAGE=$(git log -1 --pretty=%B)
