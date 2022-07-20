@@ -8,4 +8,4 @@ steps:
       environment:
         DEBUG: <<parameters.debug>>
       name: Ship Gimlet artifact
-      command: <<include(scripts/shipper.sh)>>    
+      command: <<include(scripts/shipper.sh)>>
