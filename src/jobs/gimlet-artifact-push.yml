@@ -1,0 +1,15 @@
+description: >
+  "Job to create and push a Gimlet build artifact for release automation"
+
+executor: docker
+docker:
+  - image: ghcr.io/gimlet-io/gimlet-cli:0.1.0
+
+parameters:
+  debug:
+    type: string
+    default: "false"
+    description: "To print the artifact without pushing"
+steps:
+  - gimlet-artifact-create:
+      debug: << parameters.debug >>

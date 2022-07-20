@@ -3,8 +3,6 @@ parameters:
   debug:
     type: string
     default: "false"
-docker:
-  - image: ghcr.io/gimlet-io/gimlet-cli:0.1.0
 steps:
   - run: |
       COMMIT_MESSAGE=$(git log -1 --pretty=%B)
