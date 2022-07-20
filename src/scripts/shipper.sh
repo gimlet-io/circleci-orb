@@ -28,7 +28,7 @@ fi
 
 VARS=$(printenv | grep CIRCLE | awk '$0="--var "$0')
 
-./gimlet artifact create \
+gimlet artifact create \
   --repository "$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME" \
   --sha "$CIRCLE_SHA1" \
   --created "$COMMIT_CREATED" \
@@ -45,27 +45,23 @@ VARS=$(printenv | grep CIRCLE | awk '$0="--var "$0')
   --url "$URL" \
   > artifact.json
 
-./gimlet artifact add \
+gimlet artifact add \
   -f artifact.json \
   --field "name=CI" \
   --field "url=$CIRCLE_BUILD_URL"
 
-if [ -d ".gimlet" ]; then
-  for file in .gimlet/*
-  do
-      if [[ -f $file ]]; then
-        ./gimlet artifact add -f artifact.json --envFile $file
-      fi
-  done
-fi
+for file in .gimlet/*
+do
+    if [[ -f $file ]]; then
+      ./gimlet artifact add -f artifact.json --envFile $file
+    fi
+done
 
-
-
-./gimlet artifact add -f artifact.json $VARS
+gimlet artifact add -f artifact.json $VARS
 
 if [[ "$DEBUG" == "true" ]]; then
     cat artifact.json
     exit 0
 fi
 
-./gimlet artifact push -f artifact.json
+gimlet artifact push -f artifact.json
