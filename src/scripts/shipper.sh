@@ -4,6 +4,8 @@ set -e
 
 git version
 
+echo "Creating artifact.."
+
 COMMIT_MESSAGE=$(git log -1 --pretty=%B)
 COMMIT_AUTHOR=$(git log -1 --pretty=format:'%an')
 COMMIT_AUTHOR_EMAIL=$(git log -1 --pretty=format:'%ae')
@@ -26,8 +28,6 @@ then
     EVENT="tag"
 fi
 
-VARS=$(printenv | grep CIRCLE | awk '$0="--var "$0')
-
 gimlet artifact create \
   --repository "$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME" \
   --sha "$CIRCLE_SHA1" \
@@ -45,11 +45,13 @@ gimlet artifact create \
   --url "$URL" \
   > artifact.json
 
+echo "Attaching CI run URL.."
 gimlet artifact add \
   -f artifact.json \
   --field "name=CI" \
   --field "url=$CIRCLE_BUILD_URL"
 
+echo "Attaching Gimlet manifests.."
 for file in .gimlet/*
 do
     if [[ -f $file ]]; then
@@ -57,11 +59,25 @@ do
     fi
 done
 
+echo "Attaching environment variable context.."
+VARS=$(printenv | grep CIRCLE | awk '$0="--var "$0')
 gimlet artifact add -f artifact.json $VARS
+
+echo "Attaching common Gimlet variables.."
+gimlet artifact add \
+-f artifact.json \
+--var "REPO=$CIRCLE_PROJECT_REPONAME" \
+--var "OWNER=$CIRCLE_PROJECT_USERNAME" \
+--var "BRANCH=$CIRCLE_BRANCH" \
+--var "SHA=$CIRCLE_SHA1" \
+--var "ACTOR=$CIRCLE_USERNAME" \
+--var "EVENT=$EVENT" \
+--var "JOB=$CIRCLE_JOB"
 
 if [[ "$DEBUG" == "true" ]]; then
     cat artifact.json
     exit 0
 fi
 
+echo "Shipping artifact.."
 gimlet artifact push -f artifact.json
