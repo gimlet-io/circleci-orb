@@ -6,7 +6,7 @@ orbs:
   orb-tools: circleci/orb-tools@10.0
   bats: circleci/bats@1.0
   shellcheck: circleci/shellcheck@2.0
-  gimlet: gimlet-io/circleci-orb@dev:refactor
+  # gimlet: gimlet-io/circleci-orb@dev:refactor
 
 # Pipeline Parameters
 ## These parameters are used internally by orb-tools. Skip to the Jobs section.
@@ -35,17 +35,17 @@ jobs:
       # Push new changes first, before adding new tests to your config.
       - circleci-orb/greet
 
-  demo:
-    machine: true
-    steps:
-      - checkout
-      - gimlet/gimlet-artifact-create:
-          debug: true
+  # demo:
+  #   machine: true
+  #   steps:
+  #     - checkout
+  #     - gimlet/gimlet-artifact-create:
+  #         debug: true
 
 workflows:
-  demo:
-    jobs:
-      - demo: {}
+  # demo:
+  #   jobs:
+  #     - demo: {}
 
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
   # This workflow will run on every commit
