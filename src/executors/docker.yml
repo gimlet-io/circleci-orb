@@ -1,0 +1,3 @@
+description: ""
+docker:
+  - image: ghcr.io/gimlet-io/gimlet-cli:0.1.0

@@ -2,8 +2,6 @@ description: >
   "Job to create and push a Gimlet build artifact for release automation"
 
 executor: docker
-docker:
-  - image: ghcr.io/gimlet-io/gimlet-cli:0.1.0
 
 parameters:
   debug:
