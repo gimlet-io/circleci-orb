@@ -66,6 +66,8 @@ workflows:
           requires: [hold-for-dev-publish]
       - gimlet/gimlet-artifact-push:
           debug: "true"
+          requires:
+            - orb-tools/publish-dev
       # Trigger an integration workflow to test the
       # dev:${CIRCLE_SHA1:0:7} version of your orb
       - orb-tools/trigger-integration-tests-workflow:
