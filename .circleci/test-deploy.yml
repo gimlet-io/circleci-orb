@@ -1,0 +1,14 @@
+version: 2.1
+orbs:
+  gimlet: gimlet-io/circleci-orb>@dev:<<pipeline.git.revision>>
+  orb-tools: circleci/orb-tools@11.1
+
+filters: &filters
+  tags:
+    only: /.*/
+
+workflows:
+  test-artifact:
+    jobs:
+      - gimlet/gimlet-artifact-push:
+        debug: "true"

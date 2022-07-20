@@ -64,10 +64,6 @@ workflows:
           orb-name: gimlet-io/circleci-orb
           context: orb-publishing # A restricted context containing your private publishing credentials. Will only execute if approved by an authorized user.
           requires: [hold-for-dev-publish]
-      - gimlet/gimlet-artifact-push:
-          debug: "true"
-          requires:
-            - orb-tools/publish-dev
       # Trigger an integration workflow to test the
       # dev:${CIRCLE_SHA1:0:7} version of your orb
       - orb-tools/trigger-integration-tests-workflow:
@@ -104,3 +100,4 @@ workflows:
               only:
                 - master
                 - main
+                - refactor
