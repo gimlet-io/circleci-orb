@@ -50,12 +50,16 @@ VARS=$(printenv | grep CIRCLE | awk '$0="--var "$0')
   --field "name=CI" \
   --field "url=$CIRCLE_BUILD_URL"
 
-for file in .gimlet/*
-do
-    if [[ -f $file ]]; then
-      ./gimlet artifact add -f artifact.json --envFile $file
-    fi
-done
+if [ -d ".gimlet" ]; then
+  for file in .gimlet/*
+  do
+      if [[ -f $file ]]; then
+        ./gimlet artifact add -f artifact.json --envFile $file
+      fi
+  done
+fi
+
+
 
 ./gimlet artifact add -f artifact.json $VARS
 
