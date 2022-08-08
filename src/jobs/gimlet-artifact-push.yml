@@ -1,0 +1,14 @@
+description: >
+  "Job to create and push a Gimlet build artifact for release automation"
+
+executor: docker
+
+parameters:
+  debug:
+    type: string
+    default: "false"
+    description: "To print the artifact without pushing"
+steps:
+  - checkout
+  - gimlet-artifact-create:
+      debug: << parameters.debug >>

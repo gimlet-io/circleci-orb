@@ -1,7 +1,7 @@
 version: 2.1
 
 description: >
-  The Gimlet CircleCI Orb makes Gimlet Artifact publishing a oneliner.
+  The Gimlet CircleCI Orb makes Gimlet Artifact pushing a oneliner.
 
 # This information will be displayed in the orb registry and is not mandatory.
 display:
