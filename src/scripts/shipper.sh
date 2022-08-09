@@ -55,7 +55,7 @@ echo "Attaching Gimlet manifests.."
 for file in .gimlet/*
 do
     if [[ -f $file ]]; then
-      ./gimlet artifact add -f artifact.json --envFile $file
+      gimlet artifact add -f artifact.json --envFile $file
     fi
 done
 
