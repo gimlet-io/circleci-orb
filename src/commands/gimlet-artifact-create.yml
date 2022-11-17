@@ -2,7 +2,27 @@ description: "Command to create a Gimlet build artifact for release automation"
 parameters:
   debug:
     type: string
+    description: "If set to true, the step will print the artifact then exit. Will not call the Gimlet API."
     default: "false"
+  wait:
+    type: string
+    description: "If set to true, the step will wait until the action is finished or timed out"
+    default: "false"
+  deploy:
+    type: string
+    description: "If set to true, the step will deploy the defined app to the defined env"
+    default: "false"
+  timeout:
+    type: string
+    default: "10m"
+  env:
+    type: string
+    description: "If deploy is set to true, the step will deploy the defined app to the defined env"
+    default: ""
+  app:
+    type: string
+    description: "If deploy is set to true, the step will deploy the defined app to the defined env"
+    default: ""
 steps:
   - run:
       environment:

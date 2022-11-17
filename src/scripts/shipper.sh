@@ -89,10 +89,6 @@ fi
 
 echo "Shipped artifact ID is: $ARTIFACT_ID"
 
-if [ -z "$TIMEOUT" ];
-  TIMEOUT=10m
-fi
-
 if [[ "$WAIT" == "true" || "$DEPLOY" == "true" ]]; then
     gimlet artifact track --wait --timeout $TIMEOUT $ARTIFACT_ID
 else
