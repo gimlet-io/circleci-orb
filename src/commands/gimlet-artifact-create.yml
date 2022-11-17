@@ -7,5 +7,10 @@ steps:
   - run:
       environment:
         DEBUG: <<parameters.debug>>
+        WAIT: <<parameters.wait>>
+        DEPLOY: <<parameters.deploy>>
+        TIMEOUT: <<parameters.timeout>>
+        ENV: <<parameters.env>>
+        APP: <<parameters.app>>
       name: Ship Gimlet artifact
       command: <<include(scripts/shipper.sh)>>

@@ -69,6 +69,7 @@ gimlet artifact add \
 --var "REPO=$CIRCLE_PROJECT_REPONAME" \
 --var "OWNER=$CIRCLE_PROJECT_USERNAME" \
 --var "BRANCH=$CIRCLE_BRANCH" \
+--var "TAG=$CIRCLE_TAG" \
 --var "SHA=$CIRCLE_SHA1" \
 --var "ACTOR=$CIRCLE_USERNAME" \
 --var "EVENT=$EVENT" \
@@ -80,4 +81,27 @@ if [[ "$DEBUG" == "true" ]]; then
 fi
 
 echo "Shipping artifact.."
-gimlet artifact push -f artifact.json
+ARTIFACT_ID=$(gimlet artifact push -f artifact.json --output json | jq -r '.id' )
+if [ $? -ne 0 ]; then
+    echo $ARTIFACT_ID
+    exit 1
+fi
+
+echo "Shipped artifact ID is: $ARTIFACT_ID"
+
+if [ -z "$TIMEOUT" ];
+  TIMEOUT=10m
+fi
+
+if [[ "$WAIT" == "true" || "$DEPLOY" == "true" ]]; then
+    gimlet artifact track --wait --timeout $TIMEOUT $ARTIFACT_ID
+else
+    gimlet artifact track $ARTIFACT_ID
+fi
+
+if [[ "$DEPLOY" == "true" ]]; then
+    echo "Deploying.."
+    RELEASE_ID=$(gimlet release make --artifact $ARTIFACT_ID --env $ENV --app $APP --output json | jq -r '.id')
+    echo "Deployment ID is: $RELEASE_ID"
+    gimlet release track --wait --timeout $TIMEOUT $RELEASE_ID
+fi
