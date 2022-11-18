@@ -81,13 +81,13 @@ if [[ "$DEBUG" == "true" ]]; then
 fi
 
 echo "Shipping artifact.."
-gimlet artifact push -f artifact.json --output json | jq -r '.id'
-ARTIFACT_ID=$(gimlet artifact push -f artifact.json --output json | jq -r '.id' )
+PUSH_RESULT=(gimlet artifact push -f artifact.json --output json)
 if [ $? -ne 0 ]; then
-    echo $ARTIFACT_ID
+    echo $PUSH_RESULT
     exit 1
 fi
 
+ARTIFACT_ID=$(echo $PUSH_RESULT | jq -r '.id' )
 echo "Shipped artifact ID is: $ARTIFACT_ID"
 
 if [[ "$WAIT" == "true" || "$DEPLOY" == "true" ]]; then
