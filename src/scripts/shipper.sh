@@ -28,6 +28,7 @@ then
     EVENT="tag"
 fi
 
+ls -la /bin
 gimlet artifact create \
   --repository "$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME" \
   --sha "$CIRCLE_SHA1" \
