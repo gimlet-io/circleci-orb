@@ -28,7 +28,6 @@ then
     EVENT="tag"
 fi
 
-ls -la /bin
 gimlet artifact create \
   --repository "$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME" \
   --sha "$CIRCLE_SHA1" \
@@ -82,6 +81,7 @@ if [[ "$DEBUG" == "true" ]]; then
 fi
 
 echo "Shipping artifact.."
+gimlet artifact push -f artifact.json --output json | jq -r '.id'
 ARTIFACT_ID=$(gimlet artifact push -f artifact.json --output json | jq -r '.id' )
 if [ $? -ne 0 ]; then
     echo $ARTIFACT_ID
