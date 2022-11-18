@@ -81,7 +81,7 @@ if [[ "$DEBUG" == "true" ]]; then
 fi
 
 echo "Shipping artifact.."
-PUSH_RESULT=(gimlet artifact push -f artifact.json --output json)
+PUSH_RESULT=$(gimlet artifact push -f artifact.json --output json)
 if [ $? -ne 0 ]; then
     echo $PUSH_RESULT
     exit 1
