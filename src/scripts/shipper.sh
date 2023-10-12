@@ -52,8 +52,13 @@ gimlet artifact add \
   --field "url=$CIRCLE_BUILD_URL"
 
 echo "Attaching Gimlet manifests.."
-for file in .gimlet/*.yaml
+vars_file=".gimlet/vars"
+for file in .gimlet/*
 do
+    if [[ "$file" == $vars_file ]]; then
+      continue
+    fi
+
     if [[ -f $file ]]; then
       gimlet artifact add -f artifact.json --envFile $file
     fi
@@ -76,7 +81,6 @@ gimlet artifact add \
 --var "JOB=$CIRCLE_JOB"
 
 echo "Attaching variables file.."
-vars_file=".gimlet/.env"
 if [[ -f $vars_file ]]; then
     gimlet artifact add -f artifact.json --varsFile $vars_file
 fi
