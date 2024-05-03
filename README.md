@@ -7,7 +7,6 @@ A starter template for orb projects. Build, test, and publish orbs automatically
 
 Additional READMEs are available in each directory.
 
-
 ## Resources
 
 [CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/gimlet-io/circleci-orb) - The official registry page of this orb for all versions, executors, commands, and jobs described.
